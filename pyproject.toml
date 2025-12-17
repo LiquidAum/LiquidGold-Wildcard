@@ -29,7 +29,7 @@ Documentation = "https://github.com/LiquidAum/LiquidGold-Wildcard/wiki"
 
 [tool.comfy]
 PublisherId = "liquid-aum"
-DisplayName = "LiquidGold-WildcardGold"
+DisplayName = "LiquidGold-Wildcard"
 Icon = ""
 includes = [] 
 # "requires-comfyui" = ">=1.0.0"  # ComfyUI version compatibility
