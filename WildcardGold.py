@@ -374,32 +374,25 @@ class WildcardGold:
         return {
             "required": {
                 "template": ("STRING", {"multiline": True, "default": ""}),
-                "seed_mode": (["fixed", "randomize"],),
-                "seed": ("INT", {"default": 0, "min": 0, "max": 0xFFFFFFFFFFFFFFFF}),
                 "max_passes": ("INT", {"default": 3, "min": 1, "max": 50}),
                 "missing_policy": (["keep", "empty", "error"],),
+                "seed": ("INT", {"default": 0, "min": 0, "max": 0xFFFFFFFFFFFFFFFF}),
             }
         }
 
     @classmethod
-    def IS_CHANGED(cls, template, seed_mode, seed, max_passes, missing_policy):
+    def IS_CHANGED(cls, template, max_passes, missing_policy, seed):
         cache = _get_cache()
-        if seed_mode == "randomize":
-            return float("NaN")
         return (
             template,
-            seed_mode,
-            int(seed) & 0xFFFFFFFFFFFFFFFF,
             int(max_passes),
             str(missing_policy),
+            int(seed) & 0xFFFFFFFFFFFFFFFF,
             cache.signature,
         )
 
-    def compute(self, template, seed_mode, seed, max_passes, missing_policy):
-        if seed_mode == "randomize":
-            used_seed = random.SystemRandom().randint(0, 0xFFFFFFFFFFFFFFFF)
-        else:
-            used_seed = int(seed) & 0xFFFFFFFFFFFFFFFF
+    def compute(self, template, max_passes, missing_policy, seed):
+        used_seed = int(seed) & 0xFFFFFFFFFFFFFFFF
 
         rng = random.Random(used_seed)
         out = wildcard_expand(
