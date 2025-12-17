@@ -274,6 +274,8 @@ def _expand_once(
     def repl(m: re.Match) -> str:
         nonlocal changed
         raw = m.group(1)
+        if raw.strip().lower().startswith("lora:"):
+            return m.group(0)
         keys_part, var_id = _split_token_and_var(raw)
         keys = _parse_token_keys(keys_part)
 
