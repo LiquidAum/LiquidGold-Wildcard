@@ -1,7 +1,7 @@
 [project]
 name = "LiquidGold-WildcardGold"
-description = "Enables wildcard substitution."
-version = "1.0.0"
+description = "Enables wildcard substitution, multiple anchoring"
+version = "1.0.1"
 license = {file = "LICENSE"} 
 classifiers = [
      # For OS-independent nodes (works on all operating systems)
@@ -22,13 +22,13 @@ classifiers = [
 
 
 [project.urls]
-Repository = "https://github.com/comfyanonymous/ComfyUI"
+Repository = "https://github.com/LiquidAum/LiquidGold-Wildcard"
 #  Used by Comfy Registry https://registry.comfy.org
-Documentation = "https://github.com/comfyanonymous/ComfyUI/wiki"
-"Bug Tracker" = "https://github.com/comfyanonymous/ComfyUI/issues"
+Documentation = "https://github.com/LiquidAum/LiquidGold-Wildcard/wiki"
+"Bug Tracker" = "https://github.com/LiquidAum/LiquidGold-Wildcard/issues"
 
 [tool.comfy]
-PublisherId = ""
+PublisherId = "liquid-aum"
 DisplayName = "LiquidGold-WildcardGold"
 Icon = ""
 includes = [] 
