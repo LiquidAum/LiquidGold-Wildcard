@@ -2,6 +2,32 @@
 
 Wildcard Gold is a ComfyUI text node that expands `<name>`-style tokens into lines from `custom_wildcards/*.txt` files, with recursive expansion, variable binding, and deterministic seeding. It is designed to work out of the box in any ComfyUI install without manual path configuration.
 
+## Examples
+Assume `ComfyUI/custom_wildcards/people.txt` contains two lines `Alice` and `Bob`, and `ComfyUI/custom_wildcards/pets/dogs.txt` contains `corgi`.
+
+**Basic expansion**
+
+```
+Template: A portrait of <people>
+Output:   A portrait of Alice
+```
+
+**Choose among files and bind a variable**
+
+```
+Template: <people|pets/dogs:1> smiles. <people|pets/dogs:1> holds a treat.
+Output:   corgi smiles. corgi holds a treat.
+```
+
+**Nested expansion with missing policy**
+
+```
+Template: A <people> and <nonexistent:1> at sunset
+Missing policy: empty
+Output: A Bob and  at sunset
+```
+
+
 ## Installing
 - Place this repository in `ComfyUI/custom_nodes/LiquidGold-WildcardGold` (or any folder inside `custom_nodes`).
 - Wildcard files live under `custom_wildcards/`:
@@ -41,29 +67,3 @@ Wildcard Gold is a ComfyUI text node that expands `<name>`-style tokens into lin
 - Wildcards are resolved in order: the top-level `custom_wildcards` directory first, followed by every `custom_nodes/**/custom_wildcards` folder. Duplicate basenames are merged for convenience so `<person>` works across folders.
 - The loader caches a hash of wildcard paths, mtimes, and sizes; the cache refreshes automatically when any tracked file changes.
 - Each wildcard line is read as-is (UTF-8 with `errors="ignore"`) and blank lines are skipped.
-
-## Examples
-Assume `ComfyUI/custom_wildcards/people.txt` contains two lines `Alice` and `Bob`, and `ComfyUI/custom_wildcards/pets/dogs.txt` contains `corgi`.
-
-**Basic expansion**
-
-```
-Template: A portrait of <people>
-Output:   A portrait of Alice
-```
-
-**Choose among files and bind a variable**
-
-```
-Template: <people|pets/dogs:1> smiles. <people|pets/dogs:1> holds a treat.
-Output:   corgi smiles. corgi holds a treat.
-```
-
-**Nested expansion with missing policy**
-
-```
-Template: A <people> and <nonexistent:1> at sunset
-Missing policy: empty
-Output: A Bob and  at sunset
-```
-
